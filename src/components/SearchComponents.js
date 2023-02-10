@@ -13,11 +13,22 @@ const SearchComponent = () => {
   const [offset, setOffset] = useState(0);
   // const [searchType, setSearchType] = useState("subject");
   let cancel;
-  const searchString = useRef("");
+  const apiString = useRef("");
   const totalResults = useRef(0);
 
+
+  const fetchBooksOnOffsetChange = () => {
+      const url = `${apiString.current}&offset=${offset}`;
+      axios.get(url).then((response) => {
+        console.log(response.data);
+        setBooks(response.data);
+      });
+  };
+  
   const fetchBooksOnSubject = (subject) => {
-    const url = `https://openlibrary.org/subjects/${subject}.json?limit=10&offset=${offset}`;
+    subject = subject.replaceAll(" ", "_");
+    const url = `https://openlibrary.org/subjects/${subject}.json?limit=10`;
+    apiString.current = url;
     axios.get(url).then((response) => {
       firstAPICall.current = false;
       console.log(response.data);
@@ -30,6 +41,7 @@ const SearchComponent = () => {
   const search = (keyword) => {
     if(keyword){
     const url = `https://openlibrary.org/search.json?q=${keyword}&limit=10`;
+    apiString.current = url;
     axios.get(url, {
       cancelToken: new axios.CancelToken(c=> {
         // An executor function receives a cancel function as a parameter
@@ -59,8 +71,7 @@ const SearchComponent = () => {
     setOffset(0);
     if (keyword) {
       console.log("called from keyword change");
-      searchString.current = keyword;
-      search(searchString.current);
+      search(keyword);
     }
     return () => {
       cancel && cancel();
@@ -72,13 +83,8 @@ const SearchComponent = () => {
     }
   }, [subject]);
   useEffect(() => {
-    if(searchString.current && !firstAPICall.current){
-      console.log("called from offset change");
-      const url = `https://openlibrary.org/search.json?q=${searchString.current}&limit=10&offset=${offset}`;
-      axios.get(url).then((response) => {
-        console.log(response.data);
-        setBooks(response.data);
-      });
+    if(apiString.current && !firstAPICall.current){
+      fetchBooksOnOffsetChange();
     }
   }, [offset]);
 
@@ -91,7 +97,7 @@ const SearchComponent = () => {
   return (
     <div className="row">
       <SubjectPaneComponent
-        subjects={["the lord of the rings", "harry potter", "the hobbit"]}
+        subjects={["the lord of the rings", "harry potter", "the hobbit","love"]}
         setSubject={setSubject}
       ></SubjectPaneComponent>
       <div className="col">

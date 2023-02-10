@@ -22,6 +22,7 @@ const SubjectPaneComponent = (props) => {
       <div className="subject-list col">
         {subjects?.map((subject) => (
           <div onClick={()=>{
+            subject = subject.replaceAll(" ", "_");
             setSubject(subject);
             navigate(`/${subject}`);     
           }}>
