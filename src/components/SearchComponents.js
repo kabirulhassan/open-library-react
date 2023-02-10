@@ -19,7 +19,9 @@ const SearchComponent = () => {
   const fetchBooksOnSubject = (subject) => {
     const url = `https://openlibrary.org/subjects/${subject}.json?limit=10&offset=${offset}`;
     axios.get(url).then((response) => {
+      firstAPICall.current = false;
       console.log(response.data);
+      totalResults.current = response.data?.work_count;
       setBooks(response.data);
     });
   };
@@ -34,7 +36,6 @@ const SearchComponent = () => {
         cancel = c;
       })})
       .then((response) => {
-      firstAPICall.current = false;
       console.log(response.data);
       console.log(keyword);
       totalResults.current = response.data?.numFound;
@@ -51,8 +52,7 @@ const SearchComponent = () => {
   };
   useEffect(() => {
     if(subject){
-      searchString.current = subject;
-      search(searchString.current);  
+      fetchBooksOnSubject(subject);
     }
   }, []);
   useEffect(() => {
@@ -68,7 +68,7 @@ const SearchComponent = () => {
   }, [keyword]);
   useEffect(() => {
     if(!firstAPICall.current){
-      search(subject);
+      fetchBooksOnSubject(subject);
     }
   }, [subject]);
   useEffect(() => {
