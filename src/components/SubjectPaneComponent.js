@@ -8,7 +8,7 @@ const SubjectPaneComponent = (props) => {
 
   const { subjects, setSubject } = props;
   return (
-    <>
+    <div className="col">
       <h1>Trending Subjects</h1>
       <form>
         <input
@@ -17,14 +17,14 @@ const SubjectPaneComponent = (props) => {
           onChange={handleSubjectChange}
         ></input>
       </form>
-      <div className="subject-list">
+      <div className="subject-list col">
         {subjects?.map((subject) => (
           <button key={subject} onClick={() => setSubject(subject)}>
             {subject}
           </button>
         ))}
       </div>
-    </>
+    </div>
   );
 };
 
