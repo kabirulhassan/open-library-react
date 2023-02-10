@@ -3,18 +3,30 @@ import BooksTableComponent from "./BooksTableComponent";
 import SubjectPaneComponent from "./SubjectPaneComponent";
 import axios from "axios";
 import PaginationComponent from "./PaginationComponent";
+import { useParams } from "react-router-dom";
 
 const SearchComponent = () => {
+  const firstAPICall = useRef(true);
   const [books, setBooks] = useState({});
-  const [subject, setSubject] = useState("");
+  const [subject, setSubject] = useState(useParams().subject);
   const [keyword, setKeyword] = useState("");
   const [offset, setOffset] = useState(0);
   // const [searchType, setSearchType] = useState("subject");
   let cancel;
   const searchString = useRef("");
   const totalResults = useRef(0);
+
+  const fetchBooksOnSubject = (subject) => {
+    const url = `https://openlibrary.org/subjects/${subject}.json?limit=10&offset=${offset}`;
+    axios.get(url).then((response) => {
+      console.log(response.data);
+      setBooks(response.data);
+    });
+  };
+
+
   const search = (keyword) => {
-    // https://openlibrary.org/search.json?q=the+lord+of+the+rings&limit=10&offset=10
+    if(keyword){
     const url = `https://openlibrary.org/search.json?q=${keyword}&limit=10`;
     axios.get(url, {
       cancelToken: new axios.CancelToken(c=> {
@@ -22,6 +34,7 @@ const SearchComponent = () => {
         cancel = c;
       })})
       .then((response) => {
+      firstAPICall.current = false;
       console.log(response.data);
       console.log(keyword);
       totalResults.current = response.data?.numFound;
@@ -34,18 +47,18 @@ const SearchComponent = () => {
         console.log("error: ", error);
       }
     });
+    }
   };
   useEffect(() => {
-    setOffset(0);
-    if (subject) {
+    if(subject){
       searchString.current = subject;
-      search(searchString.current);
-
+      search(searchString.current);  
     }
-  }, [subject]);
+  }, []);
   useEffect(() => {
     setOffset(0);
     if (keyword) {
+      console.log("called from keyword change");
       searchString.current = keyword;
       search(searchString.current);
     }
@@ -53,13 +66,20 @@ const SearchComponent = () => {
       cancel && cancel();
     }
   }, [keyword]);
-
   useEffect(() => {
+    if(!firstAPICall.current){
+      search(subject);
+    }
+  }, [subject]);
+  useEffect(() => {
+    if(searchString.current && !firstAPICall.current){
+      console.log("called from offset change");
       const url = `https://openlibrary.org/search.json?q=${searchString.current}&limit=10&offset=${offset}`;
       axios.get(url).then((response) => {
         console.log(response.data);
         setBooks(response.data);
       });
+    }
   }, [offset]);
 
 

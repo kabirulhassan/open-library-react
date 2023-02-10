@@ -2,8 +2,13 @@ import React from "react";
 
 const BooksTableComponent = (props) => {
     const returnLatestPublishYear = (publish_year) => {
-        const years = publish_year.map((year) => parseInt(year));
-        return Math.max(...years);
+        let latestPublishYear = parseInt(publish_year[0]);
+        for(const year of publish_year){
+            if(parseInt(year) > latestPublishYear){
+                latestPublishYear = parseInt(year);
+            }
+        }
+        return latestPublishYear;
     }
     const {books} = props;
     return (
