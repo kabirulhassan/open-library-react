@@ -6,7 +6,7 @@ import PaginationComponent from "./PaginationComponent";
 import { useParams } from "react-router-dom";
 
 const SearchComponent = () => {
-  const firstAPICall = useRef(true);
+  const firstRender = useRef(true);
   const [books, setBooks] = useState({});
   const [subject, setSubject] = useState(useParams().subject);
   const [keyword, setKeyword] = useState("");
@@ -30,7 +30,6 @@ const SearchComponent = () => {
     const url = `https://openlibrary.org/subjects/${subject}.json?limit=10`;
     apiString.current = url;
     axios.get(url).then((response) => {
-      firstAPICall.current = false;
       console.log(response.data);
       totalResults.current = response.data?.work_count;
       setBooks(response.data);
@@ -66,6 +65,9 @@ const SearchComponent = () => {
     if(subject){
       fetchBooksOnSubject(subject);
     }
+    setTimeout(() => {
+      firstRender.current = false;
+    }, 1000);
   }, []);
   useEffect(() => {
     setOffset(0);
@@ -77,13 +79,16 @@ const SearchComponent = () => {
       cancel && cancel();
     }
   }, [keyword]);
+
   useEffect(() => {
-    if(!firstAPICall.current){
+    if(!firstRender.current){
+      setOffset(0);
       fetchBooksOnSubject(subject);
     }
   }, [subject]);
+
   useEffect(() => {
-    if(apiString.current && !firstAPICall.current){
+    if(apiString.current && !firstRender.current){
       fetchBooksOnOffsetChange();
     }
   }, [offset]);
