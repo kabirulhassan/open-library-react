@@ -43,8 +43,7 @@ const SearchComponent = () => {
     if (subject === "") return;
     if (subject) {
       setIsLoading(true);
-      // subject = subject.replaceAll(" ", "_").toLowerCase();
-      subject = subject.toLowerCase();
+      subject = subject.replaceAll(" ", "_").toLowerCase();
       const url = `https://openlibrary.org/subjects/${subject}.json?limit=10`;
       apiString.current = url;
       axios
