@@ -3,11 +3,12 @@ import BooksTableComponent from "./BooksTableComponent";
 import SubjectPaneComponent from "./SubjectPaneComponent";
 import axios from "axios";
 import PaginationComponent from "./PaginationComponent";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate} from "react-router-dom";
 import TitleBarComponent from "./TitleBarComponent";
 import RotatingLinesLoader from "./RotatingLinesLoader";
 
 const SearchComponent = () => {
+  const navigate = useNavigate();
   const firstRender = useRef(true);
   const apiString = useRef("");
   const totalResults = useRef(0);
@@ -42,7 +43,8 @@ const SearchComponent = () => {
     if (subject === "") return;
     if (subject) {
       setIsLoading(true);
-      subject = subject.replaceAll(" ", "_").toLowerCase();
+      // subject = subject.replaceAll(" ", "_").toLowerCase();
+      subject = subject.toLowerCase();
       const url = `https://openlibrary.org/subjects/${subject}.json?limit=10`;
       apiString.current = url;
       axios
@@ -102,11 +104,13 @@ const SearchComponent = () => {
   };
 
   const handleReset = () => {
+    navigate("/");
     setBooks({});
     setKeyword("");
     setSubject("");
     setOffset(0);
     totalResults.current = 0;
+    apiString.current="";
   };
 
   useEffect(() => {

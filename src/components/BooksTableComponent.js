@@ -8,7 +8,6 @@ const BooksTableComponent = (props) => {
                 latestPublishYear = parseInt(year);
             }
         }
-        console.log("latestPublishYear: ", latestPublishYear);
         return latestPublishYear;
     }
     const {books} = props;

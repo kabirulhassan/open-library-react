@@ -1,6 +1,7 @@
 :root{
     --border-color: #ccc;
     --accent-color: #2c88d9;
+    --focus-color: #796ef5;
 }
 
 .row{
@@ -29,6 +30,11 @@
     min-width: 100%;
 }
 
+.search-bar:focus {
+    outline: none;
+    border-color: var(--focus-color);
+}
+
 .books-pane{
     flex: 1;
 }
@@ -55,7 +61,7 @@ td, th{
 }
 
 .title-bar{
-    margin-top: 2rem;
+    margin-top: 0.6rem;
     border-bottom: 2px solid var(--border-color);
     align-items: center;
     gap: 10px;

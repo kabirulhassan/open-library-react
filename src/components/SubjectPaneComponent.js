@@ -24,7 +24,6 @@ const SubjectPaneComponent = ({ subject, subjects, setSubject }) => {
         {subjects?.map((subject) => (
           <div className="subject-item"
           onClick={()=>{
-            subject = subject.replaceAll(" ", "_").toLowerCase();
             setSubject(subject);
             navigate(`/${subject}`);     
           }}>
