@@ -1,4 +1,4 @@
-# Github Profile Fetcher
+# Open Library
 
 ## Setup in Local
 
