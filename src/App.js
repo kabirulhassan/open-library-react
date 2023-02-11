@@ -3,9 +3,9 @@ import SearchComponent from './components/SearchComponents';
 
 function App() {
   return (
-    <div className="App">
+    <>
       <SearchComponent></SearchComponent>
-    </div>
+    </>
   );
 }
 

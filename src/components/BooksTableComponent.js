@@ -17,7 +17,8 @@ const BooksTableComponent = (props) => {
         delete books.works;
     }
     return (
-        books?.docs?.length > 0?
+        <div className="books-table">
+        {books?.docs ? books?.docs?.length > 0?
         <>
             <table>
                 <thead>
@@ -40,7 +41,9 @@ const BooksTableComponent = (props) => {
                 </tbody>
             </table>
         </>
-        : <></>
+        : <><h3>No Records Found</h3></>:<></>
+        }
+    </div>
     );
 }
 

@@ -10,10 +10,11 @@ const SubjectPaneComponent = (props) => {
 
   const { subjects, setSubject } = props;
   return (
-    <div className="col">
-      <h1>Trending Subjects</h1>
+    <div className="col subject-pane">
+      <h3>Trending Subjects</h3>
       <form>
         <input
+          className="search-bar"
           type="text"
           placeholder="Search Subjects"
           onChange={handleSubjectChange}

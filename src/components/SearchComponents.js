@@ -136,7 +136,7 @@ const SearchComponent = () => {
     setKeyword(event.target.value);
   };
   return (
-    <div className="row">
+    <div className="row main-page">
       <SubjectPaneComponent
         subjects={[
           "the lord of the rings",
@@ -146,13 +146,14 @@ const SearchComponent = () => {
         ]}
         setSubject={setSubject}
       ></SubjectPaneComponent>
-      <div className="col">
+      <div className="col books-pane">
         <TitleBarComponent
           title={subject}
           keyword={keyword}
           handleKeywordChange={handleKeywordChange}
           handleReset={handleReset}
         />
+        <div className="col books-component">
         {isLoading ? 
           <RotatingLinesLoader />:
           <BooksTableComponent books={books} />
@@ -162,6 +163,7 @@ const SearchComponent = () => {
           offset={offset}
           setOffset={setOffset}
         />
+        </div>
       </div>
     </div>
   );
