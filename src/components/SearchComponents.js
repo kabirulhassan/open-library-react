@@ -4,6 +4,7 @@ import SubjectPaneComponent from "./SubjectPaneComponent";
 import axios from "axios";
 import PaginationComponent from "./PaginationComponent";
 import { useParams } from "react-router-dom";
+import TitleBarComponent from "./TitleBarComponent";
 
 const SearchComponent = () => {
   const firstRender = useRef(true);
@@ -61,6 +62,7 @@ const SearchComponent = () => {
     });
     }
   };
+
   useEffect(() => {
     if(subject){
       fetchBooksOnSubject(subject);
@@ -106,13 +108,7 @@ const SearchComponent = () => {
         setSubject={setSubject}
       ></SubjectPaneComponent>
       <div className="col">
-        <form>
-          <input
-            type="text"
-            placeholder="Search for a book"
-            onChange={handleKeywordChange}
-          ></input>
-        </form>
+        <TitleBarComponent title={subject} handleKeywordChange={handleKeywordChange}/>
         <BooksTableComponent books={books} />
         <PaginationComponent totalResults={totalResults} offset={offset} setOffset={setOffset}/>
       </div>
