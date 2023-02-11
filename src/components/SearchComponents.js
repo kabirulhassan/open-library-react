@@ -27,6 +27,7 @@ const SearchComponent = () => {
   };
   
   const fetchBooksOnSubject = (subject) => {
+    if(subject){
     subject = subject.replaceAll(" ", "_");
     const url = `https://openlibrary.org/subjects/${subject}.json?limit=10`;
     apiString.current = url;
@@ -35,6 +36,7 @@ const SearchComponent = () => {
       totalResults.current = response.data?.work_count;
       setBooks(response.data);
     });
+  }
   };
 
 
@@ -61,6 +63,13 @@ const SearchComponent = () => {
       }
     });
     }
+  };
+
+  const handleReset = () => {
+    setKeyword("");
+    setSubject("");
+    setBooks({});
+    totalResults.current = 0;
   };
 
   useEffect(() => {
@@ -108,7 +117,7 @@ const SearchComponent = () => {
         setSubject={setSubject}
       ></SubjectPaneComponent>
       <div className="col">
-        <TitleBarComponent title={subject} handleKeywordChange={handleKeywordChange}/>
+        <TitleBarComponent title={subject} keyword={keyword} handleKeywordChange={handleKeywordChange} handleReset={handleReset}/>
         <BooksTableComponent books={books} />
         <PaginationComponent totalResults={totalResults} offset={offset} setOffset={setOffset}/>
       </div>

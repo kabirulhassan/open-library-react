@@ -1,4 +1,4 @@
-const TitleBarComponent = ({ title, handleKeywordChange }) => {
+const TitleBarComponent = ({ title, keyword, handleKeywordChange, handleReset}) => {
     const changeTitleFormat = (title) => {
         let newTitle = title?.replaceAll("_", " ").toUpperCase();
         return newTitle;
@@ -11,12 +11,13 @@ const TitleBarComponent = ({ title, handleKeywordChange }) => {
     <form>
       <input
         type="text"
+        value={keyword}
         placeholder="Search for a book"
         onChange={handleKeywordChange}
       ></input>
     </form>
     }
-    <button>Reset</button>
+    <button onClick={handleReset}>Reset</button>
     </div>
   );
 };

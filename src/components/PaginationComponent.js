@@ -8,6 +8,7 @@ const PaginationComponent = ({ totalResults, offset, setOffset }) => {
         }
     };
     return (
+        totalResults.current > 0 &&
         <div className="pagination">
             <button onClick={()=>{handleOffsetChange(-10)}}>Previous</button>
             <button onClick={()=>{handleOffsetChange(+10)}}>Next</button>
