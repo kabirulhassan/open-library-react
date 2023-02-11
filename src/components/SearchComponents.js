@@ -136,6 +136,7 @@ const SearchComponent = () => {
     if (!firstRender.current && subject) {
       setOffset(0);
       console.log("called from subject change: ", subject);
+      navigate(`/${subject}`)
       fetchBooksOnSubject(subject);
     }
     return () => {
