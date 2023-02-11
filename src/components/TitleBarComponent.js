@@ -21,7 +21,7 @@ const TitleBarComponent = ({ title, keyword, handleKeywordChange, handleReset}) 
       <div className="search-bar-icon"><FaSearch/></div>
     </div>
     }
-    <button onClick={handleReset}><FaUndo/></button>
+    <button className="reset-button" onClick={handleReset}><FaUndo/></button>
     </div>
   );
 };

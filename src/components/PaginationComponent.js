@@ -11,8 +11,8 @@ const PaginationComponent = ({ totalResults, offset, setOffset }) => {
     return (
         totalResults.current > 0 &&
         <div className="pagination row">
-            <button onClick={()=>{handleOffsetChange(-10)}}><FaCaretLeft/> Previous</button>
-            <button onClick={()=>{handleOffsetChange(+10)}}><FaCaretRight/> Next</button>
+            <button className="page-button row" disabled={offset===0} onClick={()=>{handleOffsetChange(-10)}}><FaCaretLeft/> Previous</button>
+            <button className="page-button row" disabled={offset+10>totalResults.current} onClick={()=>{handleOffsetChange(+10)}}>Next <FaCaretRight/></button>
         </div>
     );
 };

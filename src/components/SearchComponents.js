@@ -39,25 +39,34 @@ const SearchComponent = () => {
   };
 
   const fetchBooksOnSubject = (subject) => {
+    if (subject === "") return;
     if (subject) {
       setIsLoading(true);
-      subject = subject.replaceAll(" ", "_");
+      subject = subject.replaceAll(" ", "_").toLowerCase();
       const url = `https://openlibrary.org/subjects/${subject}.json?limit=10`;
       apiString.current = url;
       axios
-      .get(url)
-      .then((response) => {
-        console.log(response.data);
-        totalResults.current = response.data?.work_count;
-        setBooks(response.data);
-      })
-      .catch((error) => {
-        console.log(error);
-      })
-      .finally(() => {
-        setIsLoading(false);
-      }
-      );
+        .get(url, {
+          cancelToken: new axios.CancelToken((c) => {
+            // An executor function receives a cancel function as a parameter
+            cancel = c;
+          }),
+        })
+        .then((response) => {
+          console.log(response.data);
+          totalResults.current = response.data?.work_count;
+          setBooks(response.data);
+        })
+        .catch((error) => {
+          if (axios.isCancel(error)) {
+            console.log("cancelled");
+          } else {
+            console.log("error: ", error);
+          }
+        })
+        .finally(() => {
+          setIsLoading(false);
+        });
     }
   };
 
@@ -93,9 +102,10 @@ const SearchComponent = () => {
   };
 
   const handleReset = () => {
+    setBooks({});
     setKeyword("");
     setSubject("");
-    setBooks({});
+    setOffset(0);
     totalResults.current = 0;
   };
 
@@ -119,9 +129,13 @@ const SearchComponent = () => {
   }, [keyword]);
 
   useEffect(() => {
-    if (!firstRender.current) {
+    if (!firstRender.current && subject) {
       setOffset(0);
+      console.log("called from subject change: ", subject);
       fetchBooksOnSubject(subject);
+    }
+    return () => {
+      cancel && cancel();
     }
   }, [subject]);
 
@@ -138,11 +152,13 @@ const SearchComponent = () => {
   return (
     <div className="row main-page">
       <SubjectPaneComponent
+        subject={subject}
         subjects={[
-          "the lord of the rings",
-          "harry potter",
-          "the hobbit",
-          "love",
+          "Javascript",
+          "Harry Potter",
+          "Indian History",
+          "Crypto Currency",
+          "Criminal Law",
         ]}
         setSubject={setSubject}
       ></SubjectPaneComponent>
@@ -154,15 +170,16 @@ const SearchComponent = () => {
           handleReset={handleReset}
         />
         <div className="col books-component">
-        {isLoading ? 
-          <RotatingLinesLoader />:
-          <BooksTableComponent books={books} />
-        }
-        <PaginationComponent
-          totalResults={totalResults}
-          offset={offset}
-          setOffset={setOffset}
-        />
+          {isLoading ? (
+            <RotatingLinesLoader />
+          ) : (
+            <BooksTableComponent books={books} />
+          )}
+          <PaginationComponent
+            totalResults={totalResults}
+            offset={offset}
+            setOffset={setOffset}
+          />
         </div>
       </div>
     </div>
