@@ -27,11 +27,11 @@ const SearchComponent = () => {
       axios
         .get(url)
         .then((response) => {
-          console.log(response.data);
+          // console.log(response.data);
           setBooks(response.data);
         })
         .catch((error) => {
-          console.log(error);
+          // console.log(error);
         })
         .finally(() => {
           setIsLoading(false);
@@ -55,15 +55,15 @@ const SearchComponent = () => {
           }),
         })
         .then((response) => {
-          console.log(response.data);
+          // console.log(response.data);
           totalResults.current = response.data?.work_count;
           setBooks(response.data);
         })
         .catch((error) => {
           if (axios.isCancel(error)) {
-            console.log("cancelled");
+            // console.log("cancelled");
           } else {
-            console.log("error: ", error);
+            // console.log("error: ", error);
           }
         })
         .finally(() => {
@@ -85,16 +85,16 @@ const SearchComponent = () => {
           }),
         })
         .then((response) => {
-          console.log(response.data);
-          console.log(keyword);
+          // console.log(response.data);
+          // console.log(keyword);
           totalResults.current = response.data?.numFound;
           setBooks(response.data);
         })
         .catch((error) => {
           if (axios.isCancel(error)) {
-            console.log("cancelled");
+            // console.log("cancelled");
           } else {
-            console.log("error: ", error);
+            // console.log("error: ", error);
           }
         })
         .finally(() => {
@@ -124,7 +124,7 @@ const SearchComponent = () => {
   useEffect(() => {
     setOffset(0);
     if (keyword) {
-      console.log("called from keyword change");
+      // console.log("called from keyword change");
       search(keyword);
     }
     return () => {
@@ -135,7 +135,7 @@ const SearchComponent = () => {
   useEffect(() => {
     if (!firstRender.current && subject) {
       setOffset(0);
-      console.log("called from subject change: ", subject);
+      // console.log("called from subject change: ", subject);
       navigate(`/${subject}`)
       fetchBooksOnSubject(subject);
     }
@@ -151,7 +151,7 @@ const SearchComponent = () => {
   }, [offset]);
 
   const handleKeywordChange = (event) => {
-    console.log(event.target.value);
+    // console.log(event.target.value);
     setKeyword(event.target.value);
   };
   return (

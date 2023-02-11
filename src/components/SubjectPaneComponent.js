@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 const SubjectPaneComponent = ({ subject, subjects, setSubject }) => {
   const navigate = useNavigate();
   const handleSubjectChange = (event) => {
-    console.log(event.target.value);
+    // console.log(event.target.value);
     setSubject(event.target.value);
   };
 
@@ -21,8 +21,10 @@ const SubjectPaneComponent = ({ subject, subjects, setSubject }) => {
         ></input>
       </form>
       <div className="subject-list col">
-        {subjects?.map((subject) => (
-          <div className="subject-item"
+        {subjects?.map((subject,key) => (
+          <div 
+          key = {key}
+          className="subject-item"
           onClick={()=>{
             setSubject(subject);
             navigate(`/${subject}`);     

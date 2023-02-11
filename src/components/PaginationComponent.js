@@ -5,7 +5,7 @@ const PaginationComponent = ({ totalResults, offset, setOffset }) => {
         change = parseInt(change);
         if(offset + change >= 0 && offset + change < totalResults.current) {
             setOffset(offset + change);
-            console.log("change: ", change,"offset: ", offset, "totalResults: ", totalResults);
+            // console.log("change: ", change,"offset: ", offset, "totalResults: ", totalResults);
         }
     };
     return (
