@@ -1,4 +1,6 @@
 import {FaUndo, FaSearch} from 'react-icons/fa';
+import {ImCross} from 'react-icons/im';
+import SearchBarComponent from './SearchBarComponent';
 
 const TitleBarComponent = ({ title, keyword, handleKeywordChange, handleReset}) => {
     const changeTitleFormat = (title) => {
@@ -10,18 +12,9 @@ const TitleBarComponent = ({ title, keyword, handleKeywordChange, handleReset}) 
     {title ?
     <h1>{changeTitleFormat(title)}</h1>
     :
-    <div className="search-bar-container">
-      <input
-        type="text"
-        value={keyword}
-        placeholder="Search for a book"
-        className="search-bar"
-        onChange={handleKeywordChange}
-      ></input>
-      <div className="search-bar-icon"><FaSearch/></div>
-    </div>
+    <SearchBarComponent keyword={keyword} handleKeywordChange={handleKeywordChange} handleReset={handleReset}/>
     }
-    <button className="reset-button" onClick={handleReset}><FaUndo/></button>
+    {/* <button className="reset-button" onClick={handleReset}><ImCross/></button> */}
     </div>
   );
 };

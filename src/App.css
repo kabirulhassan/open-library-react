@@ -100,10 +100,9 @@ h1 , h3{
 }
 
 .reset-button{
-    height: 40px;
-    width: 40px;
     color: var(--border-color);
     border-color: var(--border-color);
+    border: none;
 }
 .subject-item{
     cursor: pointer;

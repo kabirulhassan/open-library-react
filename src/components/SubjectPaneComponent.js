@@ -1,7 +1,8 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import SearchBarComponent from "./SearchBarComponent";
 
-const SubjectPaneComponent = ({ subject, subjects, setSubject }) => {
+const SubjectPaneComponent = ({ subject, subjects, setSubject, handleReset }) => {
   const navigate = useNavigate();
   const handleSubjectChange = (event) => {
     // console.log(event.target.value);
@@ -11,15 +12,7 @@ const SubjectPaneComponent = ({ subject, subjects, setSubject }) => {
   return (
     <div className="col subject-pane">
       <h3>Trending Subjects</h3>
-      <form>
-        <input
-          value={subject}
-          className="search-bar"
-          type="text"
-          placeholder="Search Subjects"
-          onChange={handleSubjectChange}
-        ></input>
-      </form>
+      <SearchBarComponent keyword={subject} handleKeywordChange={handleSubjectChange} handleReset={handleReset}/>
       <div className="subject-list col">
         {subjects?.map((subject,key) => (
           <div 
@@ -38,3 +31,12 @@ const SubjectPaneComponent = ({ subject, subjects, setSubject }) => {
 };
 
 export default SubjectPaneComponent;
+{/* <form>
+        <input
+          value={subject}
+          className="search-bar"
+          type="text"
+          placeholder="Search Subjects"
+          onChange={handleSubjectChange}
+        ></input>
+      </form> */}

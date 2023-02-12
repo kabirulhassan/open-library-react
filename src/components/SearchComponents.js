@@ -165,6 +165,7 @@ const SearchComponent = () => {
           "Criminal Law",
         ]}
         setSubject={setSubject}
+        handleReset={handleReset}
       ></SubjectPaneComponent>
       <div className="col books-pane">
         <TitleBarComponent
