@@ -31,12 +31,3 @@ const SubjectPaneComponent = ({ subject, subjects, setSubject, handleReset }) =>
 };
 
 export default SubjectPaneComponent;
-{/* <form>
-        <input
-          value={subject}
-          className="search-bar"
-          type="text"
-          placeholder="Search Subjects"
-          onChange={handleSubjectChange}
-        ></input>
-      </form> */}

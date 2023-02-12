@@ -1,5 +1,4 @@
-import {FaUndo, FaSearch} from 'react-icons/fa';
-import {ImCross} from 'react-icons/im';
+
 import SearchBarComponent from './SearchBarComponent';
 
 const TitleBarComponent = ({ title, keyword, handleKeywordChange, handleReset}) => {
