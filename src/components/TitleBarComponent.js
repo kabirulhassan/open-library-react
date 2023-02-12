@@ -11,7 +11,7 @@ const TitleBarComponent = ({ title, keyword, handleKeywordChange, handleReset}) 
     {title ?
     <h1>{changeTitleFormat(title)}</h1>
     :
-    <SearchBarComponent keyword={keyword} handleKeywordChange={handleKeywordChange} handleReset={handleReset}/>
+    <SearchBarComponent keyword={keyword} handleKeywordChange={handleKeywordChange} handleReset={handleReset} placeholder="Search Book By Titles or By Author"/>
     }
     {/* <button className="reset-button" onClick={handleReset}><ImCross/></button> */}
     </div>

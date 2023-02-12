@@ -1,13 +1,13 @@
 import { ImCross } from "react-icons/im";
 import { FaSearch} from 'react-icons/fa';
 
-const SearchBarComponent = ({ keyword, handleKeywordChange, handleReset }) => {
+const SearchBarComponent = ({ keyword, handleKeywordChange, handleReset, placeholder }) => {
   return (
     <div className="search-bar-container">
       <input
         type="text"
         value={keyword}
-        placeholder="Search for a book"
+        placeholder={placeholder}
         className="search-bar"
         onChange={handleKeywordChange}
       ></input>

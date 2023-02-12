@@ -12,7 +12,7 @@ const SubjectPaneComponent = ({ subject, subjects, setSubject, handleReset }) =>
   return (
     <div className="col subject-pane">
       <h3>Trending Subjects</h3>
-      <SearchBarComponent keyword={subject} handleKeywordChange={handleSubjectChange} handleReset={handleReset}/>
+      <SearchBarComponent keyword={subject} handleKeywordChange={handleSubjectChange} handleReset={handleReset} placeholder="Search Subjects"/>
       <div className="subject-list col">
         {subjects?.map((subject,key) => (
           <div 
