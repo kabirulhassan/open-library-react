@@ -22,6 +22,12 @@
     border-right: 2px solid var(--border-color);
 }
 
+.title-bar .search-bar{
+    width: 250px;
+}
+.subject-pane .search-bar-container{
+    margin-left: 0;
+}
 .search-bar{
     padding: 10px 0;
     padding-left: 10px;
