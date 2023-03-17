@@ -32,7 +32,8 @@ const BooksTableComponent = (props) => {
                     {books.docs && books.docs.map((book) => (
                         <tr key={book?.key}>
                             <td>{book?.title}</td>
-                            <td>{book?.author_name?book.author_name:book.authors&&book?.authors[0]?.name}</td>
+                            {/* <td>{book?.author_name?book.author_name:book.authors&&book?.authors[0]?.name}</td> */}
+                            <td>{book?.author_name?book.author_name:book.authors&&book?.authors.map((author, index, authors)=> ((index+1 === authors.length)? author.name+"":author.name+", "))}</td>
                             <td>{book?.publish_year?returnLatestPublishYear(book?.publish_year):book?.first_publish_year}</td>
                             <td>{book?.first_publish_year}</td>
                         </tr>
